@@ -19,6 +19,7 @@ var questionArray = [
 
 var showQuestion; // Variable showQuestion will hold the setInterval when we start the slideshow
 var count = 0; // Count will keep track of the index of the currently displaying picture.
+var timer = 10;
 
 //Run "startSlideshow" when the "start" button is clicked
 $("#startDiv").click(startSlideshow);
@@ -26,9 +27,32 @@ $("#startDiv").click(startSlideshow);
 // TODO: Use jQuery to run "stopSlideshow" when we click the "stop" button.
 $("#stop").click(stopSlideshow);
 
+function startSlideshow() {
+    $('#startDiv').hide(); //Remove start button from display
+
+    // Run display question function to show first question
+    displayQuestion();
+
+};
+
+function decrement () {
+    timer--;
+    $('#questionTimer').html('<h2>' +'Time Remaining: ' + timer + '</h2>');
+    if (timer===0){
+        stopSlideshow();
+        nextQuestion();
+    }
+};
+
 // This function will replace display whatever question it's given in the 'src' attribute of the img tag.
 function displayQuestion() {
+    timer = 10;
+    showQuestion = setInterval(decrement, 1000);
+
     $("#questionDiv").html(questionArray[count].question);
+    $('#questionTimer').html('<h2>' +'Time Remaining: ' + timer + '</h2>');
+    
+    // TODO: Use showQuestion to hold the setInterval to run nextQuestion.
 
     for(var i = 0; i < questionArray[count].answers.length; i++) {
         $("#answersDiv").append(
@@ -44,22 +68,17 @@ function nextQuestion() {
     $("#questionDiv").html("<img src='images/loading.gif' width='200px'/>");
   
     // TODO: Use a setTimeout to run displayQuestion after 1 second.
-    setTimeout(displayQuestion, 10000);
+    setTimeout(displayQuestion, 1000);
   
-    // TODO: If the count is the same as the length of the question array, reset the count to 0.
+    // TODO: If the count is the same as the length of the question array, reset the count to 0. Show a summary page.
     if (count === questionArray.length) {
-      count = 0;
+        count = 0;
     };
 };
+
+//TODO show if answer is correct or not
   
-function startSlideshow() {
-    $('#startDiv').hide(); //Remove start button from display
-    // Run display question function to show first question
-    displayQuestion();
-  
-    // TODO: Use showQuestion to hold the setInterval to run nextQuestion.
-    showQuestion = setInterval(nextQuestion, 5000);
-};
+
   
 function stopSlideshow() { 
     // TODO: Put our clearInterval here:
