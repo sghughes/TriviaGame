@@ -1,0 +1,79 @@
+//Variables
+var questionArray = [
+    {
+    question:'How many days are in one week?',
+    answers: ['five ', 'seven ', 'ten ', 'three '],
+    correctAnswer: 'seven'
+    },
+    {
+    question:'How many months are in one year?',
+    answers: ['ten', 'fifteen', 'nine', 'twelve'],
+    correctAnswer: 'twelve'
+    },
+    {
+    question: 'How many seconds are in one minute?',
+    answers: ['sixty', 'fifty','forty', 'thirty'],
+    correctAnswer: 'sixty'
+    }
+];
+
+var showQuestion; // Variable showQuestion will hold the setInterval when we start the slideshow
+var count = 0; // Count will keep track of the index of the currently displaying picture.
+
+//Run "startSlideshow" when the "start" button is clicked
+$("#startDiv").click(startSlideshow);
+
+// TODO: Use jQuery to run "stopSlideshow" when we click the "stop" button.
+$("#stop").click(stopSlideshow);
+
+// This function will replace display whatever question it's given in the 'src' attribute of the img tag.
+function displayQuestion() {
+    $("#questionDiv").html(questionArray[count].question);
+
+    for(var i = 0; i < questionArray[count].answers.length; i++) {
+        $("#answersDiv").append(
+        '<input name="group-' + count + '" type="radio" value="' + questionArray[count].answers[i] + '" /> ' + questionArray[count].answers[i]
+        );
+    }
+};
+  
+function nextQuestion() {
+    count++; //Increment the count by 1.
+
+    // TODO: Show the loading gif in the "question-holder" div.
+    $("#questionDiv").html("<img src='images/loading.gif' width='200px'/>");
+  
+    // TODO: Use a setTimeout to run displayQuestion after 1 second.
+    setTimeout(displayQuestion, 10000);
+  
+    // TODO: If the count is the same as the length of the question array, reset the count to 0.
+    if (count === questionArray.length) {
+      count = 0;
+    };
+};
+  
+function startSlideshow() {
+    $('#startDiv').hide(); //Remove start button from display
+    // Run display question function to show first question
+    displayQuestion();
+  
+    // TODO: Use showQuestion to hold the setInterval to run nextQuestion.
+    showQuestion = setInterval(nextQuestion, 5000);
+};
+  
+function stopSlideshow() { 
+    // TODO: Put our clearInterval here:
+    clearInterval(showQuestion);
+};
+  
+// Question generated, time remaining generated, multiple choice answers generated
+
+// function play() {
+//     document.getElementById('questionAndAnswer').innerHTML(question1);
+//     console.log('hello');
+// };
+// play();
+    //on answer click, display if answer was right or wrong, timer is still displayed, display correct answer and corresponding image. After set time, auto generate new question with timer reset (no user input before moving on to new page)
+    //on times up, display "out of time", display correct answer and corresponding image, after set time, auto generate new question with timer reset (no user input to move on)
+
+//at end of game, summarize correct answers, incorrect answers, unanswered questions. Timer stops. Button generated -> on click, start game over.
