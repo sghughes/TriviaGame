@@ -150,6 +150,8 @@ function nextQuestion() {
         $('#questionDiv').hide();
         $('#answersDiv').hide();
         $('#questionTimer').hide();
+        $('#startDiv').html('Play again?');    
+        $('#startDiv').show();
     }
     else {
     // TODO: Show the loading gif in the "question-holder" div.
