@@ -2,7 +2,7 @@
 var questionArray = [
     {
     question:'How many days are in one week?',
-    answers: ['five ', 'seven ', 'ten ', 'three '],
+    answers: ['five', 'seven', 'ten', 'three'],
     correctAnswer: 'seven'
     },
     {
@@ -20,6 +20,7 @@ var questionArray = [
 var showQuestion; // Variable showQuestion will hold the setInterval when we start the slideshow
 var count = 0; // Count will keep track of the index of the currently displaying picture.
 var timer = 10;
+var answerClicked;
 
 //Run "startSlideshow" when the "start" button is clicked
 $("#startDiv").click(startSlideshow);
@@ -46,8 +47,13 @@ function decrement () {
 
 // This function will replace display whatever question it's given in the 'src' attribute of the img tag.
 function displayQuestion() {
+    $('#resultsDiv').hide();
+    $('#questionDiv').show();
+    $('#answersDiv').show();
+    $('#questionTimer').show();
     timer = 10;
     showQuestion = setInterval(decrement, 1000);
+    $('#answersDiv').html('');
 
     $("#questionDiv").html(questionArray[count].question);
     $('#questionTimer').html('<h2>' +'Time Remaining: ' + timer + '</h2>');
@@ -56,11 +62,66 @@ function displayQuestion() {
 
     for(var i = 0; i < questionArray[count].answers.length; i++) {
         $("#answersDiv").append(
-        '<input name="group-' + count + '" type="radio" value="' + questionArray[count].answers[i] + '" /> ' + questionArray[count].answers[i]
+        '<input name="group-' + count + '" type="radio" id="answerButton' + i +'" value="' + questionArray[count].answers[i] + '" /> ' + ' ' + questionArray[count].answers[i] + ' '
         );
     }
+    
 };
-  
+
+//captures value of button clicked
+$(document).on('click', '#answerButton0', function(){
+    answerClicked = document.getElementById('answerButton0').getAttribute('value');
+    console.log(answerClicked);
+    if(answerClicked === questionArray[count].correctAnswer){
+        console.log('correct!');
+    }
+    else {
+        console.log('wrong');
+    }
+ });
+$(document).on('click', '#answerButton1', function(){
+   answerClicked = document.getElementById('answerButton1').getAttribute('value');
+    console.log(answerClicked);
+    //if value of button clicked equals the right answer, hide questions and answers, display results for 5 seconds, then run next question
+    $('#resultsDiv').show();
+    $('#questionDiv').hide();
+    $('#answersDiv').hide();
+    $('#questionTimer').hide();
+    stopSlideshow();
+    if(answerClicked === questionArray[count].correctAnswer){
+        $('#resultsDiv').html('correct');
+        console.log('correct!');
+    }
+    else {
+        $('#resultsDiv').html('wrong');
+        console.log('wrong');
+    }
+    timer = 5;
+    showQuestion = setInterval(decrement, 1000);
+});
+$(document).on('click', '#answerButton2', function(){
+    answerClicked = document.getElementById('answerButton2').getAttribute('value');
+     console.log(answerClicked);
+     if(answerClicked === questionArray[count].correctAnswer){
+        alert('correct!');
+    }
+    else {
+        alert('wrong');
+    }
+ });
+ $(document).on('click', '#answerButton3', function(){
+    answerClicked = document.getElementById('answerButton3').getAttribute('value');
+     console.log(answerClicked);
+     if(answerClicked === questionArray[count].correctAnswer){
+        alert('correct!');
+    }
+    else {
+        alert('wrong');
+    }
+ });
+ 
+
+
 function nextQuestion() {
     count++; //Increment the count by 1.
 
