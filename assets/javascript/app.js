@@ -1,5 +1,6 @@
 //Questions: 
      //1. click event for answers clicked regardless of answers array size?
+     //2. Way to use only one decrement question?
 
 //Variables
 var questionArray = [
@@ -28,12 +29,8 @@ var correctAnswerBank =0; //stores number of correct answers clicked
 var incorrectAnswer = 0; //stores value of incorrect answers clicked
 var unanswered = 0;
 
-
 //Run "startSlideshow" when the "start" button is clicked
 $("#startDiv").click(startSlideshow);
-
-// Could use jQuery to run "stopSlideshow" when we click the "stop" button.
-// $("#stop").click(stopSlideshow);
 
 //function to start game
 function startSlideshow() {
@@ -50,17 +47,16 @@ function startSlideshow() {
 //function to count down from timer number and display on question page
 function decrement () {
     timer--;
-    $('#questionTimer').html('<h2>' +'Time Remaining: ' + timer + '</h2>');
+    $('#questionTimer').html('<h3>' +'Time Remaining: ' + timer + '</h3>');
     if (timer===0){
         stopSlideshow();
         nextQuestion();
     }
-
 };
 
 function decrementQuestion () {
     timer--;
-    $('#questionTimer').html('<h2>' +'Time Remaining: ' + timer + '</h2>');
+    $('#questionTimer').html('<h3>' +'Time Remaining: ' + timer + '</h3>');
     if (timer===0){
         stopSlideshow();
         $('#resultsDiv').show();
@@ -73,10 +69,7 @@ function decrementQuestion () {
         timer = 5;
         showQuestion = setInterval(decrement, 1000);
     }
-
 };
-
-
 
 // Function to display current question and answer options
 function displayQuestion() {
@@ -89,7 +82,7 @@ function displayQuestion() {
     showQuestion = setInterval(decrementQuestion, 1000); //timer countdown by seconds
 
     $('#answersDiv').html(''); //clear answersDiv if needed
-    $('#questionTimer').html('<h2>' +'Time Remaining: ' + timer + '</h2>');
+    $('#questionTimer').html('<h3>' +'Time Remaining: ' + timer + '</h3>');
     $("#questionDiv").html(questionArray[count].question); //display current question
     
     //display answer options
@@ -110,12 +103,13 @@ $(document).on('click', '#answerButton0', function(){
     $('#questionTimer').hide();
     stopSlideshow();
     if(answerClicked === questionArray[count].correctAnswer){
-        $('#resultsDiv').html('correct');
-        console.log('correct!');
+        $('#resultsDiv').html('Correct!');
+        console.log('Correct!');
         correctAnswerBank++;
     }
     else {
-        $('#resultsDiv').html('wrong');
+        $('#resultsDiv').html('Incorrect!');
+        $('#resultsDiv').append('<p>'+'The correct answer was ' + questionArray[count].correctAnswer + '</p>');
         console.log('wrong');
         incorrectAnswer++;
     }
@@ -131,12 +125,13 @@ $(document).on('click', '#answerButton1', function(){
     $('#questionTimer').hide();
     stopSlideshow();
     if(answerClicked === questionArray[count].correctAnswer){
-        $('#resultsDiv').html('correct');
-        console.log('correct!');
+        $('#resultsDiv').html('Correct!');
+        console.log('Correct!');
         correctAnswerBank++;
     }
     else {
-        $('#resultsDiv').html('wrong');
+        $('#resultsDiv').html('Incorrect!');
+        $('#resultsDiv').append('<p>'+'The correct answer was ' + questionArray[count].correctAnswer + '.' + '</p>');
         console.log('wrong');
         incorrectAnswer++;
     }
@@ -152,12 +147,13 @@ $(document).on('click', '#answerButton2', function(){
     $('#questionTimer').hide();
     stopSlideshow();
     if(answerClicked === questionArray[count].correctAnswer){
-    $('#resultsDiv').html('correct');
-    console.log('correct!');
+    $('#resultsDiv').html('Correct!');
+    console.log('Correct!');
     correctAnswerBank++;
     }
     else {
-        $('#resultsDiv').html('wrong');
+        $('#resultsDiv').html('Incorrect!');
+        $('#resultsDiv').append('<p>'+'The correct answer was ' + questionArray[count].correctAnswer + '.' + '</p>');
         console.log('wrong');
         incorrectAnswer++;
     }
@@ -173,12 +169,13 @@ $(document).on('click', '#answerButton2', function(){
     $('#questionTimer').hide();
     stopSlideshow();
     if(answerClicked === questionArray[count].correctAnswer){
-    $('#resultsDiv').html('correct');
-    console.log('correct!');
+    $('#resultsDiv').html('Correct!');
+    console.log('Correct!');
     correctAnswerBank++;
     }
     else {
-        $('#resultsDiv').html('wrong');
+        $('#resultsDiv').html('Incorrect!');
+        $('#resultsDiv').append('<p>'+'The correct answer was ' + questionArray[count].correctAnswer + '.' + '</p>');
         console.log('wrong');
         incorrectAnswer++;
     }
@@ -195,14 +192,14 @@ function nextQuestion() {
         count = 0;
         // unanswered = questionArray.length - incorrectAnswer - correctAnswerBank; //calculates number of questions skipeed
         $('#resultsDiv').html('<h2>' + 'All done, here\'s how you did!' + '</h2>');
-        $('#resultsDiv').append('<h2>' + 'Correct Answers: ' + correctAnswerBank + '</h2>');
-        $('#resultsDiv').append('<h2>' + 'Incorrect Answers: ' + incorrectAnswer + '</h2>');
-        $('#resultsDiv').append('<h2>' + 'Unanswered: ' + unanswered + '</h2>');
+        $('#resultsDiv').append('<h3>' + 'Correct Answers: ' + correctAnswerBank + '</h3>');
+        $('#resultsDiv').append('<h3>' + 'Incorrect Answers: ' + incorrectAnswer + '</h3>');
+        $('#resultsDiv').append('<h3>' + 'Unanswered: ' + unanswered + '</h3>');
         $('#resultsDiv').show();
         $('#questionDiv').hide();
         $('#answersDiv').hide();
         $('#questionTimer').hide();
-        $('#startDiv').html('Play again?');    
+        $('#startDiv').html('<button class="btn btn-lg">' + 'Play again?' + '</button>');   
         $('#startDiv').show();
     }
     else {
@@ -218,9 +215,7 @@ function stopSlideshow() {
     clearInterval(showQuestion);
 };
   
+//disply image on results and summary pages
 
-
-    //on answer click, display if answer was right or wrong, timer is still displayed, display correct answer and corresponding image. After set time, auto generate new question with timer reset (no user input before moving on to new page)
-    //on times up, display "out of time", display correct answer and corresponding image, after set time, auto generate new question with timer reset (no user input to move on)
-//if timesup, show results page with correct answer
-//at end of game, summarize correct answers, incorrect answers, unanswered questions. Timer stops. Button generated -> on click, start game over.
+// Could use jQuery to run "stopSlideshow" when we click the "stop" button.
+// $("#stop").click(stopSlideshow);
