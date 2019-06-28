@@ -44,7 +44,7 @@ function startSlideshow() {
     displayQuestion(); // Run display question function to show first question
 };
 
-//function to count down from timer number and display on question page
+//function to count down from timer number and move on to new question. Used for page showing correct answers.
 function decrement () {
     timer--;
     $('#questionTimer').html('<h3>' +'Time Remaining: ' + timer + '</h3>');
@@ -54,6 +54,7 @@ function decrement () {
     }
 };
 
+//function to count down from timer number and displayed on question page
 function decrementQuestion () {
     timer--;
     $('#questionTimer').html('<h3>' +'Time Remaining: ' + timer + '</h3>');
@@ -113,6 +114,15 @@ $(document).on('click', '#answerButton0', function(){
         console.log('wrong');
         incorrectAnswer++;
     }
+    if (count === 0) {
+        $('#resultsDiv').append('<img src="./assets/images/day.jpg">');
+    }
+    else if (count ===1) {
+        $('#resultsDiv').append('<img src="./assets/images/month.jpeg">');
+    }
+    else {
+        $('#resultsDiv').append('<img src="./assets/images/time.jpg">');
+    }
     timer = 5;
     showQuestion = setInterval(decrement, 1000);
 });
@@ -134,6 +144,15 @@ $(document).on('click', '#answerButton1', function(){
         $('#resultsDiv').append('<p>'+'The correct answer was ' + questionArray[count].correctAnswer + '.' + '</p>');
         console.log('wrong');
         incorrectAnswer++;
+    }
+    if (count === 0) {
+        $('#resultsDiv').append('<img src="./assets/images/day.jpg">');
+    }
+    else if (count ===1) {
+        $('#resultsDiv').append('<img src="./assets/images/month.jpeg">');
+    }
+    else {
+        $('#resultsDiv').append('<img src="./assets/images/time.jpg">');
     }
     timer = 5;
     showQuestion = setInterval(decrement, 1000);
@@ -157,6 +176,15 @@ $(document).on('click', '#answerButton2', function(){
         console.log('wrong');
         incorrectAnswer++;
     }
+    if (count === 0) {
+        $('#resultsDiv').append('<img src="./assets/images/day.jpg">');
+    }
+    else if (count ===1) {
+        $('#resultsDiv').append('<img src="./assets/images/month.jpeg">');
+    }
+    else {
+        $('#resultsDiv').append('<img src="./assets/images/time.jpg">');
+    }
     timer = 5;
     showQuestion = setInterval(decrement, 1000);
  });
@@ -178,6 +206,15 @@ $(document).on('click', '#answerButton2', function(){
         $('#resultsDiv').append('<p>'+'The correct answer was ' + questionArray[count].correctAnswer + '.' + '</p>');
         console.log('wrong');
         incorrectAnswer++;
+    }
+    if (count === 0) {
+        $('#resultsDiv').append('<img src="./assets/images/day.jpg">');
+    }
+    else if (count ===1) {
+        $('#resultsDiv').append('<img src="./assets/images/month.jpeg">');
+    }
+    else {
+        $('#resultsDiv').append('<img src="./assets/images/time.jpg">');
     }
     timer = 5;
     showQuestion = setInterval(decrement, 1000);
@@ -216,6 +253,3 @@ function stopSlideshow() {
 };
   
 //disply image on results and summary pages
-
-// Could use jQuery to run "stopSlideshow" when we click the "stop" button.
-// $("#stop").click(stopSlideshow);
